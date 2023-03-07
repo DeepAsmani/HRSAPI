@@ -19,7 +19,7 @@ namespace HotelBookingSystem.DAL
             this.accountRepository = accountRepository; 
         }
         
-        public async Task<IEnumerable<LoginResult>> AdminLogin(LoginRequest request)
+        public Task<IEnumerable<LoginResult>> AdminLogin(LoginRequest request)
         {/*
             try
             {
@@ -50,10 +50,10 @@ namespace HotelBookingSystem.DAL
                     Message = "something went wrong, please try again...",
                     Success = false
                 };
-                return (IEnumerable<LoginResult>)result;
+                return Task.FromResult((IEnumerable<LoginResult>)result);
             //}
         }
-        public async Task<IEnumerable<LoginResult>> CustomerLogin(LoginRequest request)
+        public Task<IEnumerable<LoginResult>> CustomerLogin(LoginRequest request)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace HotelBookingSystem.DAL
                         Message = "Already Register.....",
                         Success = true
                     };
-                    return (IEnumerable<LoginResult>)result;
+                    return Task.FromResult((IEnumerable<LoginResult>)result);
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace HotelBookingSystem.DAL
                         Message = "something went wrong, please try again",
                         Success = false
                     };
-                    return (IEnumerable<LoginResult>)result;
+                    return Task.FromResult((IEnumerable<LoginResult>)result);
                 }
             }
             catch
@@ -96,10 +96,10 @@ namespace HotelBookingSystem.DAL
                     Message = "something went wrong, please try again",
                     Success = false
                 };
-                return (IEnumerable<LoginResult>)result;
+                return Task.FromResult((IEnumerable<LoginResult>)result);
             }
         }
-        public async Task<IEnumerable<RegisterResult>> AdminRegister(RegisterRequest request)
+        public Task<IEnumerable<RegisterResult>> AdminRegister(RegisterRequest request)
         {/*
             try
             {
@@ -122,10 +122,10 @@ namespace HotelBookingSystem.DAL
                     Message = "something went wrong, please try again",
                     Success = false
                 };
-                return (IEnumerable<RegisterResult>)result;
+                return Task.FromResult((IEnumerable<RegisterResult>)result);
             //}
         }
-        public async Task <IEnumerable<RegisterResult>> CustomerRegister(RegisterRequest request)
+        public Task <IEnumerable<RegisterResult>> CustomerRegister(RegisterRequest request)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace HotelBookingSystem.DAL
                         Message = "Already Register.....",
                         Success = false
                     };
-                    return (IEnumerable<RegisterResult>)result;
+                    return Task.FromResult((IEnumerable<RegisterResult>)result);
                 }
                 else
                 {
@@ -163,7 +163,7 @@ namespace HotelBookingSystem.DAL
                         Message = "Register Success...",
                         Success = true
                     };
-                    return (IEnumerable<RegisterResult>)result;
+                    return Task.FromResult((IEnumerable<RegisterResult>)result);
                 }
 
             }
@@ -174,7 +174,7 @@ namespace HotelBookingSystem.DAL
                     Message = "something went wrong, please try again",
                     Success = false
                 };
-                return (IEnumerable<RegisterResult>)result;
+                return Task.FromResult((IEnumerable<RegisterResult>)result);
             }
         }
     }

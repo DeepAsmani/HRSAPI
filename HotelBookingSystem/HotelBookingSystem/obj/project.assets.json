@@ -1676,11 +1676,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "W:\\HRSBook\\HotelBookingSystem\\HotelBookingSystem\\HotelBookingSystem\\HotelBookingSystem.csproj",
+      "projectUniqueName": "W:\\HRSBook\\HRSAPI\\HotelBookingSystem\\HotelBookingSystem\\HotelBookingSystem.csproj",
       "projectName": "HotelBookingSystem",
-      "projectPath": "W:\\HRSBook\\HotelBookingSystem\\HotelBookingSystem\\HotelBookingSystem\\HotelBookingSystem.csproj",
+      "projectPath": "W:\\HRSBook\\HRSAPI\\HotelBookingSystem\\HotelBookingSystem\\HotelBookingSystem.csproj",
       "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "W:\\HRSBook\\HotelBookingSystem\\HotelBookingSystem\\HotelBookingSystem\\obj\\",
+      "outputPath": "W:\\HRSBook\\HRSAPI\\HotelBookingSystem\\HotelBookingSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",

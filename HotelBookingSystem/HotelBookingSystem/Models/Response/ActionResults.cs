@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HotelBookingSystem.Models.Response
 {
-    public class ActionsResult
+    public class ActionsResults
     {
         public int Id { get; set; }
         public string Message { get; set; }

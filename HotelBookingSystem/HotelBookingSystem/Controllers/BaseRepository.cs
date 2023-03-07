@@ -7,15 +7,16 @@ using MySql.Data.MySqlClient;
 using MySql.Data.Common;
 using Microsoft.Extensions.Configuration;
 
-namespace HotelBookingSystem.DAL
+namespace HotelBookingSystem.Controllers
 {
-    public class BaseRepository1
+    public class BaseRepository
     {
         protected MySqlConnection con;    
         
-        public BaseRepository1()
+        public BaseRepository()
         {
-            this.con = new MySqlConnection("Data Source=sql12.freemysqlhosting.net;Database=sql12602557;User Id=sql12602557;Password=yKkcKGu4mS");  
-        }
+            //this.con = new MySqlConnection("Data Source=sql12.freemysqlhosting.net;Database=sql12602557;User Id=sql12602557;Password=yKkcKGu4mS");
+            this.con = new MySqlConnection("Data Source=sql12.freemysqlhosting.net;Database=sql12602557;User Id=sql12602557;Password=yKkcKGu4mS");
+    }
     }
 }
