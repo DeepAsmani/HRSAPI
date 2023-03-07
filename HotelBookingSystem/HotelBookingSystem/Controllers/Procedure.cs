@@ -81,5 +81,29 @@ namespace HotelBookingSystem.Controllers
                 "            SELECT p_BookingId AS Id, v_Message AS `Message`; " +
                 "            END; " +
                 "            END;";
+
+
+
+
+        public string BookingDateGetList = "CREATE PROCEDURE `Booking_GetListDate`(IN `BookingId` INT) " +
+            "BEGIN" +
+            "  DECLARE StartDate DATETIME;" +
+            "        DECLARE EndDate DATETIME;" +
+            "  DECLARE Counter INT DEFAULT 0;" +
+            "        DECLARE TotalCount INT;" +
+            "  CREATE TEMPORARY TABLE tableDate(" +
+            "    Dates DATE" +
+            "  );" +
+            "        SET StartDate = (SELECT CheckinDate FROM BOOKING WHERE BookingId = BookingId);" +
+            "  SET EndDate = (SELECT CheckoutDate FROM BOOKING WHERE BookingId = BookingId);" +
+            "  SET TotalCount = DATEDIFF(EndDate, StartDate);" +
+            "        WHILE(Counter <= TotalCount) DO" +
+            "         DECLARE DateValue DATETIME;" +
+            "        SET DateValue = DATE_ADD(StartDate, INTERVAL Counter DAY);" +
+            "        INSERT INTO tableDate(Dates) VALUES(DateValue);" +
+            "        SET Counter = Counter + 1;" +
+            "        END WHILE;" +
+            "        SELECT* FROM tableDate;" +
+            "END";
     }
 }
