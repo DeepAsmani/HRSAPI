@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\HotelBookingSystem",
+    "\\HotelBookingSystem\\HotelBookingSystem",
+    "\\HotelBookingSystem\\HotelBookingSystem\\Controllers",
+    "\\HotelBookingSystem\\HotelBookingSystem\\DAL",
+    "\\HotelBookingSystem\\HotelBookingSystem\\Models"
+  ],
+  "SelectedNode": "\\HotelBookingSystem\\HotelBookingSystem\\Controllers\\AccountController.cs",
+  "PreviewInSolutionExplorer": false
+}
