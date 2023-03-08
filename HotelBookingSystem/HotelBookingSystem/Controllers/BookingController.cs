@@ -65,7 +65,7 @@ namespace HotelBookingSystem.Controllers
                 parameters.Add("@NumberofAdults", booking.NumberofAdults);
                 parameters.Add("@NumberofChildren", booking.NumberofChildren);
                 con.Close();
-                var result = con.QueryAsync<ActionsResults>(query.BookingSave, param: parameters);
+                var result = con.QueryAsync<ActionsResults>(sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
                 return result.Result.FirstOrDefault();
             }
             catch (Exception e)
@@ -86,7 +86,7 @@ namespace HotelBookingSystem.Controllers
             con.Open();
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            var result = con.QueryAsync<ActionsResults>(query.BookingDelete, param: parameters);
+            var result = con.QueryAsync<ActionsResults>(sql: "Booking_Delete", param: parameters, commandType: CommandType.StoredProcedure);
             con.Close();
             return result.Result.FirstOrDefault();
         }
@@ -95,7 +95,12 @@ namespace HotelBookingSystem.Controllers
         [Route("api/booking/getListDate/{id}")]
         public IEnumerable<DateTime> GetListDate(int id)
         {
-            return await bookingService.GetListDate(id);
+            /*con.Open();
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@BookingId", id);
+            var result = con.QueryAsync<ActionsResults>(query.BookingDateGetList, param: parameters);
+            con.Close();
+            return result.Result.FirstOrDefault();*/
         }
     }
 }
