@@ -7,9 +7,9 @@ namespace HotelBookingSystem.Models.Response
 {
     public class Customer
     {
-        public int idCustomer { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerEmail { get; set; }
-        public string CustomerPhone { get; set; }        public string CustomerPassword { get; set; }
+        public int CustomerId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }        public string Password { get; set; }
     }
 }

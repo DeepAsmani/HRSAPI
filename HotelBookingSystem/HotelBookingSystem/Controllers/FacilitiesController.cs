@@ -1,47 +1,64 @@
 ﻿using HotelBookingSystem.Models.Response;
-using HotelBookingSystem.Interface.BAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System;
+using System.Data;
+using Dapper;
 
 namespace HotelBookingSystem.Controllers
 {
     [ApiController]
     public class FacilitiesController : ControllerBase
     {
-        private readonly IFacilityService facilityService;
+        public BaseRepository conn = new BaseRepository();
 
-        public FacilitiesController(IFacilityService facilityService)
-        {
-            this.facilityService = facilityService;
-        }
+        public FacilitiesController() {    }
 
         [HttpGet]
         [Route("api/facilities/getall")]
-        public async Task<IEnumerable<Facility>> GetAll()
+        public IEnumerable<Facility> GetAll()
         {
-            return await facilityService.GetAll();
+            return SqlMapper.QueryAsync<Facility>(conn.con, "Facility_GetAll", commandType: CommandType.StoredProcedure).Result;
         }
 
         [HttpGet]
         [Route("api/facilities/getbyid/{id}")]
-        public async Task<Facility> GetById(int id)
+        public Facility GetById(int id)
         {
-            return await facilityService.GetById(id);
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@FacilityId", id);
+            return SqlMapper.QueryFirstOrDefaultAsync<Facility>(cnn: conn.con, sql: "Facility_GetbyId", param: parameters, commandType: CommandType.StoredProcedure).Result;
         }
 
         [HttpPost]
         [Route("api/facilities/save")]
-        public async Task<ActionsResult> Save(Facility facility)
+        public ActionsResults Save(Facility facility)
         {
-            return await facilityService.Save(facility);
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@FacilityId", facility.FacilityId);
+                parameters.Add("@FacilityName", facility.FacilityName);
+                parameters.Add("@FacilityImage", facility.FacilityImage);
+                return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "Facility_Save", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            }
+            catch (Exception)
+            {
+                return new ActionsResults()
+                {
+                    Id = 0,
+                    Message = "An error occurred, please try again!"
+                };
+            }
         }
 
         [HttpDelete]
         [Route("api/facilities/delete/{id}")]
-        public async Task<ActionsResult> Remove(int id)
+        public ActionsResults Remove(int id)
         {
-            return await facilityService.Delete(id);
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@FacilityId", id);
+            return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "Facility_Delete", param: parameters, commandType: CommandType.StoredProcedure).Result;
         }
     }
 }

@@ -1,55 +1,66 @@
 ﻿using HotelBookingSystem.Models.Response;
-using HotelBookingSystem.Interface.BAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ActionsResult = HotelBookingSystem.Models.Response.ActionsResult;
+using Dapper;
+using System.Data;
 
 namespace HotelBookingSystem.Controllers
 {
     [ApiController]
     public class OfferController : ControllerBase
     {
-        private readonly IOfferService couponService;
+        public BaseRepository conn = new BaseRepository();
 
-        public OfferController(IOfferService couponService)
+        public OfferController()
         {
-            this.couponService = couponService;
         }
 
         [HttpGet]
         [Route("api/coupon/getbyid/{id}")]
-        public async Task<Offer> GetById(int id)
+        public Offer GetById(int id)
         {
-            return await couponService.GetById(id);
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CouponId", id);
+            return SqlMapper.QueryFirstOrDefaultAsync<Offer>(cnn: conn.con, sql: "Copuon_GetbyId", param: parameters, commandType: CommandType.StoredProcedure).Result;
         }
 
         [HttpGet]
         [Route("api/coupon/getall")]
-        public async Task<IEnumerable<Offer>> GetAll()
+        public IEnumerable<Offer> GetAll()
         {
-            return await couponService.GetAll();
+            return SqlMapper.QueryAsync<Offer>(conn.con, "Offer_GetAll", commandType: CommandType.StoredProcedure).Result;
         }
 
         [HttpPost]
         [Route("api/coupon/save")]
-        public async Task<ActionsResult> Save(Offer coupon)
+        public ActionsResults Save(Offer coupon)
         {
-            return await couponService.Save(coupon);
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CouponId", coupon.OfferId);
+            parameters.Add("@CouponCode", coupon.OfferCode);
+            parameters.Add("@Reduction", coupon.Reduction);
+            parameters.Add("@Remain", coupon.Remain);
+            parameters.Add("@EndDate", coupon.EndDate);
+            return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(conn.con, sql: "Offer_Save", param: parameters, commandType: CommandType.StoredProcedure).Result;
         }
 
         [HttpDelete]
         [Route("api/coupon/delete/{id}")]
-        public async Task<ActionsResult> Delete(int id)
+        public ActionsResults Delete(int id)
         {
-            return await couponService.Delete(id);
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@OfferId", id);
+            return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "Offer_Delete", param: parameters, commandType: CommandType.StoredProcedure).Result;
         }
 
         [HttpGet]
         [Route("api/coupon/search/{id}")]
-        public async Task<OfferSearchResult> Search(string id)
+        public async Task<OfferSearchResult> Search(string couponCode)
         {
-            return await couponService.Search(id);
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CouponCode", couponCode);
+            return await SqlMapper.QueryFirstOrDefaultAsync<OfferSearchResult>(cnn: conn.con, sql: "Offer_Search", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }
