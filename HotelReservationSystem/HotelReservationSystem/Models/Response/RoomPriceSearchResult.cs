@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HotelBookingSystem.Models.Response
+namespace HotelReservationSystem.Models.Response
 {
     public class RoomPriceSearchResult
     {

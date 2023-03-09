@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "h1MDyvpaaTfYStsRDtoS4fYYllot0+i8N9acBO4BfB2I4HHSWd+7nyBgFTutnrMz6fIjsy5J+rOHbUxyx1jmAA==",
+  "dgSpecHash": "2DkD12088LI9Ft/j1GcFK0rwpj1yFO01ZAPf6+k6bW7OiP6+HMFZTMMbtr+bUX+MYo17YJyXhD5C8248HRf6mg==",
   "success": true,
   "projectFilePath": "W:\\HRSBook\\HRSAPI\\HotelReservationSystem\\HotelReservationSystem\\HotelReservationSystem.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Dell\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

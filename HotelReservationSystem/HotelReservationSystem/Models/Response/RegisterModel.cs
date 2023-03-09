@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelBookingSystem.Models.Response
+namespace HotelReservationSystem.Models.Response
 {
     public class RegisterModel
     {

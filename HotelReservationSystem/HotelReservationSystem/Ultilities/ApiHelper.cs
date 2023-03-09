@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace HotelBooking.Web.Ultilities
+namespace HotelReservationSystem.Ultilities
 {
     public class ApiHelper<T> where T : class
     {

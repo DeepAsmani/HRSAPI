@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HotelBookingSystem.Models.Response
+namespace HotelReservationSystem.Models.Response
 {
     public class Service
     {

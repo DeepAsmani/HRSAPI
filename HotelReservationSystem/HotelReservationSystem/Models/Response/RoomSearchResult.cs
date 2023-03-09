@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HotelBookingSystem.Models.Response
+namespace HotelReservationSystem.Models.Response
 {
     public class RoomSearchResult
     {

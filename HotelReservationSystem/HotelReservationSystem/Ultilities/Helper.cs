@@ -1,7 +1,7 @@
-﻿namespace HotelBooking.Web.Ultilities
+﻿namespace HotelReservationSystem.Ultilities
 {
     public class Helper
     {
-        public static string ApiUrl = @"http://localhost:50224/";
+        public static string ApiUrl = @"http://localhost:45455/";
     }
 }

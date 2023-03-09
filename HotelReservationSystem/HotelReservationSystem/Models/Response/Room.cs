@@ -1,4 +1,4 @@
-﻿namespace HotelBookingSystem.Models.Response
+﻿namespace HotelReservationSystem.Models.Response
 {
     public class Room
     {
