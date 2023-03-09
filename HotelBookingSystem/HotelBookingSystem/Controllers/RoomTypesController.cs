@@ -1,9 +1,7 @@
 ﻿using HotelBookingSystem.Models.Request;
 using HotelBookingSystem.Models.Response;
-using HotelBookingSystem.Interface.BAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Dapper;
 using System;
 using System.Data;
@@ -96,6 +94,8 @@ namespace HotelBookingSystem.Controllers
         [Route("api/roomtypes/search")]
         public IEnumerable<RoomTypeSearchResult> Search(SearchModel request)
         {
+            conn.con.Close();
+            conn.con.Open();
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Adult", request.NumberofAdults);
             parameters.Add("@Children", request.NumberofChildren);

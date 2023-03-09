@@ -25,7 +25,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return (IEnumerable<BookingRoomDetails>)conn.con.QueryAsync<BookingRoomDetails>(sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
+            return conn.con.QueryAsync<BookingRoomDetails>(sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId", param: parameters, commandType: CommandType.StoredProcedure).Result;
         }
 
         [HttpGet]

@@ -1,6 +1,5 @@
 ﻿using HotelBookingSystem.Models.Request;
 using HotelBookingSystem.Models.Response;
-using HotelBookingSystem.Interface.BAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ namespace HotelBookingSystem.Controllers
     /// </summary>
     [ApiController]
     public class ServicesController : ControllerBase
-    {
+    {/*
         private readonly IServiceService serviceService;
 
         public ServicesController(IServiceService serviceService)
@@ -29,10 +28,10 @@ namespace HotelBookingSystem.Controllers
 
         [HttpGet]
         [Route("api/service/getallwithimages")]
-        /*public async Task<IEnumerable<Services>> GetAllWithImages()
+        public async Task<IEnumerable<Services>> GetAllWithImages()
         {
             return await serviceService.GetAllWithImages();
-        }*/
+        }
 
         [HttpGet]
         [Route("api/service/get/{id}")]
@@ -50,14 +49,14 @@ namespace HotelBookingSystem.Controllers
 
         [HttpPost]
         [Route("api/service/save")]
-        public async Task<ActionsResult> Save([FromBody] CreateServiceRequest service)
+        public async Task<ActionsResults> Save([FromBody] CreateServiceRequest service)
         {
             return await serviceService.Save(service);
         }
 
         [HttpDelete]
         [Route("api/service/delete/{id}")]
-        public async Task<ActionsResult> Remove(int id)
+        public async Task<ActionsResults> Remove(int id)
         {
             return await serviceService.Delete(id);
         }
@@ -67,6 +66,6 @@ namespace HotelBookingSystem.Controllers
         public async Task<IEnumerable<Service>> Search(string keyWord)
         {
             return await serviceService.Search(keyWord);
-        }
+        }*/
     }
 }

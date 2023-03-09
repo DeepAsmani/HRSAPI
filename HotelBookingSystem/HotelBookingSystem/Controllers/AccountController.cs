@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using HotelBookingSystem.Models.Response;
 using HotelBookingSystem.Models.Request;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 //using HotelBookingSystem.Interface.BAL;
 using MySql.Data.MySqlClient;
 
@@ -175,14 +169,14 @@ namespace HotelBookingSystem.Controllers
                     //cmd = new MySqlCommand(query, con);
                     var Parameters = new Customer()
                     {
-                        CustomerEmail = request.Email,
-                        CustomerName = request.Name,
-                        CustomerPassword = request.Password
+                        Email = request.Email,
+                        Name = request.Name,
+                        Password = request.Password
                     };//.AddWithValue("@name", request.Name);
                     //sda = new MySqlCommand(query, con);
-                    sda.Parameters.AddWithValue("@name", Parameters.CustomerName);
-                    sda.Parameters.AddWithValue("@email", Parameters.CustomerEmail);
-                    sda.Parameters.AddWithValue("@password", Parameters.CustomerPassword);
+                    sda.Parameters.AddWithValue("@name", Parameters.Name);
+                    sda.Parameters.AddWithValue("@email", Parameters.Email);
+                    sda.Parameters.AddWithValue("@password", Parameters.Password);
                     sda.ExecuteNonQuery();
                     con.Close();
                     var result = new RegisterResult()
