@@ -15,7 +15,7 @@ namespace HotelBookingSystem.Controllers
         //public RoomTypesController roomTypesController;
         public BaseRepository conn = new BaseRepository();
 
-        public SearchController(RoomTypesController RTC)
+        public SearchController()
         {
             
         }
