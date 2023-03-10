@@ -28,7 +28,8 @@ namespace HotelBookingSystem.Controllers
         private readonly SignInManager<Customer> signInCustomer;
         private readonly IWebHostEnvironment webHostEnvironment;*/
         //private readonly IAccountService accountService;
-        public MySqlConnection con = new MySqlConnection("Data Source=sql12.freemysqlhosting.net;Database=sql12602557;User Id=sql12602557;Password=yKkcKGu4mS");
+        //public MySqlConnection con = new MySqlConnection("Data Source=sql12.freemysqlhosting.net;Database=sql12602557;User Id=sql12602557;Password=yKkcKGu4mS");
+        public BaseRepository conn = new BaseRepository();
         public AccountController(/*IAccountService accountService*/)//UserManager<Admin> userAdmin, SignInManager<Admin> signInAdmin, UserManager<Customer> userCustomer,SignInManager<Customer> signInCustomer, IWebHostEnvironment webHostEnvironment)
         {
             //this.accountService = accountService;
@@ -82,13 +83,13 @@ namespace HotelBookingSystem.Controllers
                     Success = false,
                     Email = string.Empty
             };
-            /*try
-            {*/
-                con.Open();
+            try
+            {
 
-            String query = "SELECT * FROM customer WHERE CustomerEmail = @Email";
-            MySqlCommand sdaa = new MySqlCommand(query, con);
+            String query = "SELECT * FROM customer WHERE Email = @Email AND Password = @Password";
+            MySqlCommand sdaa = new MySqlCommand(query, conn.con);
             sdaa.Parameters.AddWithValue("@Email", request.Email);
+            sdaa.Parameters.AddWithValue("@Password", request.Password);
             MySqlDataReader dt = sdaa.ExecuteReader();
             
             if (dt.HasRows)
@@ -103,11 +104,11 @@ namespace HotelBookingSystem.Controllers
                 }
             dt.Close();
             return result;
-            /*}
+            }
             catch
             {
                 return result;
-            }*/
+            }
             //return (LoginResult)await accountService.CustomerLogin(request);
         }
         /*
@@ -144,12 +145,10 @@ namespace HotelBookingSystem.Controllers
         [Route("/api/account/customerregister")]
         public RegisterResult CustomerRegister(RegisterRequest request)
         {
-            /*try
-            {*/
-                con.Open();
-
-                String query = "SELECT * FROM customer WHERE CustomerEmail = @Email";
-                MySqlCommand sdaa = new MySqlCommand(query, con);
+            try
+            {
+                String query = "SELECT * FROM customer WHERE Email = @Email";
+                MySqlCommand sdaa = new MySqlCommand(query, conn.con);
                 sdaa.Parameters.AddWithValue("@Email", request.Email);
                 MySqlDataReader dt = sdaa.ExecuteReader();
                 
@@ -165,7 +164,7 @@ namespace HotelBookingSystem.Controllers
                 else
                 {
                 dt.Close();
-                MySqlCommand sda =new MySqlCommand("INSERT INTO customer(CustomerName,CustomerEmail,CustomerPassword) VALUES(@name,@email,@password)",con);
+                MySqlCommand sda =new MySqlCommand("INSERT INTO customer(Name,Email,Password) VALUES(@name,@email,@password)",conn.con);
                     //cmd = new MySqlCommand(query, con);
                     var Parameters = new Customer()
                     {
@@ -178,7 +177,6 @@ namespace HotelBookingSystem.Controllers
                     sda.Parameters.AddWithValue("@email", Parameters.Email);
                     sda.Parameters.AddWithValue("@password", Parameters.Password);
                     sda.ExecuteNonQuery();
-                    con.Close();
                     var result = new RegisterResult()
                     {
                         Message = "Register Success...",
@@ -187,7 +185,7 @@ namespace HotelBookingSystem.Controllers
                     return result;
                 }
 
-            /*}
+            }
             catch
             {
                 var result = new RegisterResult()
@@ -196,7 +194,7 @@ namespace HotelBookingSystem.Controllers
                     Success = false
                 };
                 return result;
-            }*/
+            }
         }
     }
 }
