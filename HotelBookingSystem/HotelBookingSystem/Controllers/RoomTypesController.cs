@@ -21,7 +21,7 @@ namespace HotelBookingSystem.Controllers
         [Route("api/roomtypes/getall")]
         public IEnumerable<RoomType> GetAll()
         {
-            return SqlMapper.QueryAsync<RoomType>(conn.con, "RoomType_GetAll", commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.Query<RoomType>(conn.con, "RoomType_GetAll", commandType: CommandType.StoredProcedure);
         }
 
         /*[HttpGet]
@@ -69,7 +69,7 @@ namespace HotelBookingSystem.Controllers
                 parameters.Add("@MaxPeople", roomType.MaxPeople);
                 parameters.Add("@Quantity", roomType.Quantity);
                 parameters.Add("@Description", roomType.Description);
-                return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "RoomType_Save", param: parameters, commandType: CommandType.StoredProcedure).Result;
+                return SqlMapper.QueryFirstOrDefault<ActionsResults>(cnn: conn.con, sql: "RoomType_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
@@ -87,7 +87,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RoomTypeId", id);
-            return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "RoomType_Delete", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.QueryFirstOrDefault<ActionsResults>(cnn: conn.con, sql: "RoomType_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpPost]
@@ -101,7 +101,7 @@ namespace HotelBookingSystem.Controllers
             parameters.Add("@Children", request.NumberofChildren);
             parameters.Add("@CheckInDate", request.CheckinDate);
             parameters.Add("@CheckOutDate", request.CheckoutDate);
-            return SqlMapper.QueryAsync<RoomTypeSearchResult>(cnn: conn.con, sql: "RoomType_Search", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.Query<RoomTypeSearchResult>(cnn: conn.con, sql: "RoomType_Search", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace HotelBookingSystem.Controllers
         [Route("api/facilities/getall")]
         public IEnumerable<Facility> GetAll()
         {
-            return SqlMapper.QueryAsync<Facility>(conn.con, "Facility_GetAll", commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.Query<Facility>(conn.con, "Facility_GetAll", commandType: CommandType.StoredProcedure);
         }
 
         [HttpGet]
@@ -27,7 +27,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@FacilityId", id);
-            return SqlMapper.QueryFirstOrDefaultAsync<Facility>(cnn: conn.con, sql: "Facility_GetbyId", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.QueryFirstOrDefault<Facility>(cnn: conn.con, sql: "Facility_GetbyId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpPost]
@@ -40,7 +40,7 @@ namespace HotelBookingSystem.Controllers
                 parameters.Add("@FacilityId", facility.FacilityId);
                 parameters.Add("@FacilityName", facility.FacilityName);
                 parameters.Add("@FacilityImage", facility.FacilityImage);
-                return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "Facility_Save", param: parameters, commandType: CommandType.StoredProcedure).Result;
+                return SqlMapper.QueryFirstOrDefault<ActionsResults>(cnn: conn.con, sql: "Facility_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
@@ -58,7 +58,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@FacilityId", id);
-            return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "Facility_Delete", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.QueryFirstOrDefault<ActionsResults>(cnn: conn.con, sql: "Facility_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

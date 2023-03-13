@@ -15,7 +15,7 @@ namespace HotelBookingSystem.Controllers
         public BaseRepository conn = new BaseRepository();
 
 
-        CustomersController() { }
+        public CustomersController() { }
         /*
          Get Method Controller
          */
@@ -23,8 +23,8 @@ namespace HotelBookingSystem.Controllers
         [Route("api/customer/get")]
         public IEnumerable<Customer> Get()
         {
-            var result=conn.con.QueryAsync<Customer>(sql: "Customer_GetAll", commandType: CommandType.StoredProcedure);
-            return (IEnumerable<Customer>)result.Result;
+            
+            return conn.con.Query<Customer>(sql: "Customer_GetAll", commandType: CommandType.StoredProcedure); ;
         }
         /*
          * get only Id Controller
@@ -35,7 +35,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CustomerId", id);
-            return (conn.con.QueryFirstOrDefaultAsync<Customer>(sql: "Customer_GetByCustomerId", param: parameters, commandType: CommandType.StoredProcedure)).Result;
+            return conn.con.QueryFirstOrDefault<Customer>(sql: "Customer_GetByCustomerId", param: parameters, commandType: CommandType.StoredProcedure);
         }
         /*
          * Insert Data Controller
@@ -51,7 +51,7 @@ namespace HotelBookingSystem.Controllers
                 parameters.Add("@Name", customer.Name);
                 parameters.Add("@PhoneNumber", customer.PhoneNumber);
                 parameters.Add("@Email", customer.Email);
-                return (conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "Customer_Save", param: parameters, commandType: CommandType.StoredProcedure)).Result;
+                return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "Customer_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
@@ -71,7 +71,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CustomerId", id);
-            return (conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "Customer_Delete", param: parameters, commandType: CommandType.StoredProcedure)).Result;
+            return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "Customer_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

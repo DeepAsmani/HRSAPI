@@ -29,7 +29,7 @@ namespace HotelBookingSystem.Controllers
                     DynamicParameters parameters = new DynamicParameters();
                     parameters.Add("@FacilityId", int.Parse(facility));
                     parameters.Add("@RoomTypeId", facilityApply.RoomTypeId);
-                    result = (conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "FacilityApply_Save", param: parameters, commandType: CommandType.StoredProcedure)).Result;
+                    result = conn.con.QueryFirstOrDefault<ActionsResults>(sql: "FacilityApply_Save", param: parameters, commandType: CommandType.StoredProcedure);
                 }
                 return result;
             }
@@ -49,7 +49,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@FacilityApplyId", id);
-            return (conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "FacilityApply_Delete", param: parameters, commandType: CommandType.StoredProcedure)).Result;
+            return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "FacilityApply_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpDelete]
@@ -58,7 +58,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RoomTypeId", id);
-            return (conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "FacilityApply_DeleteByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure)).Result; ;
+            return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "FacilityApply_DeleteByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RoomTypeId", id);
-            return SqlMapper.QueryAsync<FacilityApply>(cnn:conn.con,sql: "FacilityApply_GetByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.Query<FacilityApply>(cnn:conn.con,sql: "FacilityApply_GetByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

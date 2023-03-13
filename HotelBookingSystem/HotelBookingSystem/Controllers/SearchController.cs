@@ -30,7 +30,7 @@ namespace HotelBookingSystem.Controllers
         [Route("api/searchresult/search")]
         public SearchResult Search(SearchRequest request)
         {
-            var roomTypes = (SqlMapper.QueryAsync<RoomType>(conn.con, "RoomType_GetAll", commandType: CommandType.StoredProcedure).Result).ToList();
+            var roomTypes = SqlMapper.Query<RoomType>(conn.con, "RoomType_GetAll", commandType: CommandType.StoredProcedure).ToList();
             var roomSearchResults = new List<RoomSearchResult>();
             foreach (var roomRequest in request.RoomTypeSearchRequests)
             {
@@ -45,7 +45,7 @@ namespace HotelBookingSystem.Controllers
                 parameters.Add("@Children", roomRequest.Children);
                 parameters.Add("@CheckInDate", request.CheckInDate);
                 parameters.Add("@CheckOutDate", request.CheckOutDate);
-                var roomTypeSearchResults= SqlMapper.QueryAsync<RoomTypeSearchResult>(cnn: conn.con, sql: "RoomType_Search", param: parameters, commandType: CommandType.StoredProcedure).Result.ToList();
+                var roomTypeSearchResults= SqlMapper.Query<RoomTypeSearchResult>(cnn: conn.con, sql: "RoomType_Search", param: parameters, commandType: CommandType.StoredProcedure).ToList();
                 //var roomTypeSearchResults = roomTypesController.Search(searchModel).ToList();
                 foreach (var roomTypeSearchResult in roomTypeSearchResults)
                 {

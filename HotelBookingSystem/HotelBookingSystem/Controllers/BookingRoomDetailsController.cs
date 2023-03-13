@@ -25,7 +25,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return conn.con.QueryAsync<BookingRoomDetails>(sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return conn.con.Query<BookingRoomDetails>(sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return (IEnumerable<BookingRoomDetails>)conn.con.QueryAsync<BookingRoomDetails>(sql: "BookingRoomDetails_GetByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
+            return conn.con.Query<BookingRoomDetails>(sql: "BookingRoomDetails_GetByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpPost]
@@ -47,8 +47,8 @@ namespace HotelBookingSystem.Controllers
                 parameters.Add("@BookingId", bookingRoomDetails.BookingId);
                 parameters.Add("@RoomTypeId", bookingRoomDetails.RoomTypeId);
                 parameters.Add("@RoomQuantity", bookingRoomDetails.RoomQuantity);
-                var result =conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "BookingRoomDetails_Save", param: parameters, commandType: CommandType.StoredProcedure);
-                return result.Result;
+                
+                return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "BookingRoomDetails_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
@@ -66,8 +66,8 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingRoomDetailsId", id);
-            var result= conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "BookingRoomDetails_Delete", param: parameters, commandType: CommandType.StoredProcedure);
-            return result.Result;
+            
+           return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "BookingRoomDetails_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpDelete]
@@ -76,8 +76,8 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            var result = conn.con.QueryFirstOrDefaultAsync<ActionsResults>(sql: "BookingRoomDetails_DeletebyBookingId", param: parameters, commandType: CommandType.StoredProcedure);
-            return result.Result;
+            
+            return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "BookingRoomDetails_DeletebyBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

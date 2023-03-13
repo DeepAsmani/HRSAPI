@@ -22,14 +22,14 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CouponId", id);
-            return SqlMapper.QueryFirstOrDefaultAsync<Offer>(cnn: conn.con, sql: "Copuon_GetbyId", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.QueryFirstOrDefault<Offer>(cnn: conn.con, sql: "Copuon_GetbyId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpGet]
         [Route("api/coupon/getall")]
         public IEnumerable<Offer> GetAll()
         {
-            return SqlMapper.QueryAsync<Offer>(conn.con, "Offer_GetAll", commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.Query<Offer>(conn.con, "Offer_GetAll", commandType: CommandType.StoredProcedure);
         }
 
         [HttpPost]
@@ -42,7 +42,7 @@ namespace HotelBookingSystem.Controllers
             parameters.Add("@Reduction", coupon.Reduction);
             parameters.Add("@Remain", coupon.Remain);
             parameters.Add("@EndDate", coupon.EndDate);
-            return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(conn.con, sql: "Offer_Save", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.QueryFirstOrDefault<ActionsResults>(conn.con, sql: "Offer_Save", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpDelete]
@@ -51,16 +51,16 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@OfferId", id);
-            return SqlMapper.QueryFirstOrDefaultAsync<ActionsResults>(cnn: conn.con, sql: "Offer_Delete", param: parameters, commandType: CommandType.StoredProcedure).Result;
+            return SqlMapper.QueryFirstOrDefault<ActionsResults>(cnn: conn.con, sql: "Offer_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpGet]
         [Route("api/coupon/search/{id}")]
-        public async Task<OfferSearchResult> Search(string couponCode)
+        public OfferSearchResult Search(string couponCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CouponCode", couponCode);
-            return await SqlMapper.QueryFirstOrDefaultAsync<OfferSearchResult>(cnn: conn.con, sql: "Offer_Search", param: parameters, commandType: CommandType.StoredProcedure);
+            return SqlMapper.QueryFirstOrDefault<OfferSearchResult>(cnn: conn.con, sql: "Offer_Search", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

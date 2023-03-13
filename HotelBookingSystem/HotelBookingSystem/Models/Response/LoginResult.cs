@@ -8,8 +8,13 @@ namespace HotelBookingSystem.Models.Response
     public class LoginResult
     {
 
-        public string Email { get; set; }
+        public int Id { get; set; }
         public string Message { get; set; }
         public bool Success { get; set; }
+
+        public static implicit operator LoginResult(Task<LoginResult> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

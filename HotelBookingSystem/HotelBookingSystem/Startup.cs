@@ -87,6 +87,9 @@ namespace HotelBookingSystem
 
             app.UseRouting();
 
+            app.UseHsts();
+            app.UseHttpsRedirection();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

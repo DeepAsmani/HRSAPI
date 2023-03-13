@@ -4,6 +4,8 @@ using HotelBookingSystem.Models.Response;
 using HotelBookingSystem.Models.Request;
 //using HotelBookingSystem.Interface.BAL;
 using MySql.Data.MySqlClient;
+using Dapper;
+using System.Data;
 
 namespace HotelBookingSystem.Controllers
 {
@@ -11,34 +13,8 @@ namespace HotelBookingSystem.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        /*
-         * UserManager : 
-         * to manage users e.g. registering new users, validating credentials and loading user information. 
-         * It is not concerned with how user information is stored. For this it relies on a UserStore 
-         * 
-         * SignInManager :
-         * Validates the sign in code from an authenticator app and creates and signs in the user, as an asynchronous operation.
-         * 
-         * IWebHostEnvironment :
-         * Provides information about the web hosting environment an application is running in.
-         */
-        /*private readonly UserManager<Admin> userAdmin;
-        private readonly SignInManager<Admin> signInAdmin;
-        private readonly UserManager<Customer> userCustomer;
-        private readonly SignInManager<Customer> signInCustomer;
-        private readonly IWebHostEnvironment webHostEnvironment;*/
-        //private readonly IAccountService accountService;
-        //public MySqlConnection con = new MySqlConnection("Data Source=sql12.freemysqlhosting.net;Database=sql12602557;User Id=sql12602557;Password=yKkcKGu4mS");
         public BaseRepository conn = new BaseRepository();
-        public AccountController(/*IAccountService accountService*/)//UserManager<Admin> userAdmin, SignInManager<Admin> signInAdmin, UserManager<Customer> userCustomer,SignInManager<Customer> signInCustomer, IWebHostEnvironment webHostEnvironment)
-        {
-            //this.accountService = accountService;
-           /* this.userAdmin = userAdmin;
-            this.signInAdmin = signInAdmin;
-            this.userCustomer = userCustomer;
-            this.signInCustomer = signInCustomer;
-            this.webHostEnvironment = webHostEnvironment;*/
-        }
+        public AccountController() { }
         /*
          * Admin Login Controlller         
          */
@@ -46,28 +22,28 @@ namespace HotelBookingSystem.Controllers
         [Route("/api/account/adminlogin")]
         public LoginResult AdminLogin(LoginRequest request)
         {
-            var result = new LoginResult()
+            try
             {
-                Message = "something went wrong, please try again",
-                Success = false,
-                Email = string.Empty
-            };
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@email1", request.Email);
+                parameters.Add("@password", request.Password);
+                LoginResult result = conn.con.QueryFirstOrDefault<LoginResult>(sql: "Admin_Login", param: parameters, commandType: CommandType.StoredProcedure);
+                if (result.Message.Equals("Login successful."))
+                    result.Success = true;
+                else
+                    result.Success = false;
+                return result;
 
-            /*var siginResult = await signInAdmin.PasswordSignInAsync(request.Email, request.Password, false, false);
-
-            if (siginResult.Succeeded)
+            }
+            catch (Exception)
             {
-                var user = await userAdmin.FindByNameAsync(request.Email);
-                if (user != null)
+                return new LoginResult()
                 {
-                    result.Success = siginResult.Succeeded;
-                    result.Email = user.AdminEmail;
-                    result.Message = "Login success";
-                }
-            }*/
-
-            return result;
-            //return (LoginResult)await accountService.AdminLogin(request);
+                    Id = 0,
+                    Message = "An error occurred, please try again!",
+                    Success = false
+                };
+            }
         }
         /*
          * Customer Login Controlller         
@@ -76,40 +52,28 @@ namespace HotelBookingSystem.Controllers
         [Route("/api/account/customerlogin")]
         public LoginResult CustomerLogin(LoginRequest request)
         {
-          
-            var result = new LoginResult()
-            {
-                    Message = "something went wrong, please try again",
-                    Success = false,
-                    Email = string.Empty
-            };
-            try
-            {
+           try
+           {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@email1", request.Email);
+                parameters.Add("@password", request.Password);
+                LoginResult result = conn.con.QueryFirstOrDefault<LoginResult>(sql: "Customer_Login", param: parameters, commandType: CommandType.StoredProcedure);
+                if (result.Message.Equals("Login successful."))
+                    result.Success = true;
+                else
+                    result.Success = false;
+                return result;
 
-            String query = "SELECT * FROM customer WHERE Email = @Email AND Password = @Password";
-            MySqlCommand sdaa = new MySqlCommand(query, conn.con);
-            sdaa.Parameters.AddWithValue("@Email", request.Email);
-            sdaa.Parameters.AddWithValue("@Password", request.Password);
-            MySqlDataReader dt = sdaa.ExecuteReader();
-            
-            if (dt.HasRows)
-                {
-                    result = new LoginResult()
-                    {
-                        Message = "Login Success",
-                        Success = true,
-                        Email =request.Email
-                    }; dt.Close();
-                return result;
-                }
-            dt.Close();
-            return result;
             }
-            catch
+            catch (Exception)
             {
-                return result;
+                return new LoginResult()
+                {
+                    Id = 0,
+                    Message = "An error occurred, please try again!",
+                    Success = false
+                };
             }
-            //return (LoginResult)await accountService.CustomerLogin(request);
         }
         /*
          * Admin Register Controlller         
@@ -118,25 +82,28 @@ namespace HotelBookingSystem.Controllers
         [Route("/api/account/adminregister")]
         public RegisterResult AdminRegister(RegisterRequest request)
         {
-            var result = new RegisterResult()
+            try
             {
-                Message = "something went wrong, please try again",
-                Success = false
-            };
-            /*
-            var user = new Admin()
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@name", request.Name);
+                parameters.Add("@email", request.Email);
+                parameters.Add("@password", request.Password);
+                RegisterResult result = conn.con.QueryFirstOrDefault<RegisterResult>(sql: "Admin_Register", param: parameters, commandType: CommandType.StoredProcedure);
+                if (result.Message.Equals("Registration successful."))
+                    result.Success = true;
+                else
+                    result.Success = false;
+                return result;
+
+            }
+            catch (Exception)
             {
-                AdminEmail = request.Email,
-                AdminName = request.Name
-            };
-            //var registerResult = await userAdmin.CreateAsync(user, request.Password);
-            if (registerResult.Succeeded)
-            {
-                result.Message = "Register success";
-                result.Success = registerResult.Succeeded;
-            }*/
-            return result;
-            //return (RegisterResult)await accountService.AdminRegister(request);
+                return new RegisterResult()
+                {
+                    Message = "An error occurred, please try again!",
+                    Success = false
+                };
+            }
         }
         /*
          * Customer Register Controlller         
@@ -147,53 +114,25 @@ namespace HotelBookingSystem.Controllers
         {
             try
             {
-                String query = "SELECT * FROM customer WHERE Email = @Email";
-                MySqlCommand sdaa = new MySqlCommand(query, conn.con);
-                sdaa.Parameters.AddWithValue("@Email", request.Email);
-                MySqlDataReader dt = sdaa.ExecuteReader();
-                
-                if (dt.HasRows)
-                {
-                    var result = new RegisterResult()
-                    {
-                        Message = "Already Register.....",
-                        Success = false
-                    };
-                    return result;
-                }
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@name", request.Name);
+                parameters.Add("@email", request.Email);
+                parameters.Add("@password", request.Password);
+                RegisterResult result = conn.con.QueryFirstOrDefault<RegisterResult>(sql: "customer_Register", param: parameters, commandType: CommandType.StoredProcedure);
+                if (result.Message.Equals("Registration successful."))
+                    result.Success = true;
                 else
-                {
-                dt.Close();
-                MySqlCommand sda =new MySqlCommand("INSERT INTO customer(Name,Email,Password) VALUES(@name,@email,@password)",conn.con);
-                    //cmd = new MySqlCommand(query, con);
-                    var Parameters = new Customer()
-                    {
-                        Email = request.Email,
-                        Name = request.Name,
-                        Password = request.Password
-                    };//.AddWithValue("@name", request.Name);
-                    //sda = new MySqlCommand(query, con);
-                    sda.Parameters.AddWithValue("@name", Parameters.Name);
-                    sda.Parameters.AddWithValue("@email", Parameters.Email);
-                    sda.Parameters.AddWithValue("@password", Parameters.Password);
-                    sda.ExecuteNonQuery();
-                    var result = new RegisterResult()
-                    {
-                        Message = "Register Success...",
-                        Success = true
-                    };
-                    return result;
-                }
+                    result.Success = false;
+                return result;
 
             }
-            catch
+            catch (Exception)
             {
-                var result = new RegisterResult()
+                return new RegisterResult()
                 {
-                    Message = "something went wrong, please try again",
+                    Message = "An error occurred, please try again!",
                     Success = false
                 };
-                return result;
             }
         }
     }

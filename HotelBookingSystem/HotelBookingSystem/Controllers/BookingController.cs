@@ -25,8 +25,7 @@ namespace HotelBookingSystem.Controllers
         [Route("api/booking/get")]
         public IEnumerable<Booking> Get()
         {
-            var result=conn.con.QueryAsync<Booking>(sql: "Booking_GetAll", commandType: CommandType.StoredProcedure);
-            return (IEnumerable<Booking>)result.Result;
+            return conn.con.Query<Booking>(sql: "Booking_GetAll", commandType: CommandType.StoredProcedure);
         }
 
         [HttpGet]
@@ -35,8 +34,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            var result = conn.con.QueryAsync<Booking>(sql: "Booking_GetByBookingId", param:parameters, commandType: CommandType.StoredProcedure);
-            return result.Result.FirstOrDefault();
+            return conn.con.QueryFirstOrDefault<Booking>(sql: "Booking_GetByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpPost]
@@ -53,8 +51,8 @@ namespace HotelBookingSystem.Controllers
                 parameters.Add("@CheckoutDate", booking.CheckoutDate);
                 parameters.Add("@NumberofAdults", booking.NumberofAdults);
                 parameters.Add("@NumberofChildren", booking.NumberofChildren);
-                var result = conn.con.QueryAsync<ActionsResults>(sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
-                return result.Result.FirstOrDefault();
+               
+                return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception e)
             {
@@ -72,8 +70,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            var result = conn.con.QueryAsync<ActionsResults>(sql: "Booking_Delete", param: parameters, commandType: CommandType.StoredProcedure);
-            return result.Result.FirstOrDefault();
+            return conn.con.QueryFirstOrDefault<ActionsResults>(sql: "Booking_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         [HttpGet]
@@ -82,8 +79,7 @@ namespace HotelBookingSystem.Controllers
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            var result = conn.con.QueryAsync<ActionsResults>(sql: "Booking_GetListDate", param: parameters, commandType: CommandType.StoredProcedure);
-            return (IEnumerable<DateTime>)result.Result; ;
+            return conn.con.Query<DateTime>(sql: "Booking_GetListDate", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }
