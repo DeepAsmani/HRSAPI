@@ -67,6 +67,8 @@ namespace HotelBookingSystem
             //services.AddTransient<IServiceImageRepository, ServiceImageRepository>();
             //services.AddTransient<IServiceImageService, ServiceImageService>();
             //services.AddTransient<ISearchService, SearchService>();
+            
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelBookingSystem", Version = "v1" });

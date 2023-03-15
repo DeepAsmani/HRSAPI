@@ -34,7 +34,7 @@ namespace HotelBookingSystem.Controllers
         public Customer Get(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@CustomerId", id);
+            parameters.Add("@CustomerId1", id);
             return conn.con.QueryFirstOrDefault<Customer>(sql: "Customer_GetByCustomerId", param: parameters, commandType: CommandType.StoredProcedure);
         }
         /*

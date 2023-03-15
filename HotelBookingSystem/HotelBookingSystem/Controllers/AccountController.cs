@@ -26,7 +26,7 @@ namespace HotelBookingSystem.Controllers
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@email1", request.Email);
-                parameters.Add("@password", request.Password);
+                parameters.Add("@password1", request.Password);
                 LoginResult result = conn.con.QueryFirstOrDefault<LoginResult>(sql: "Admin_Login", param: parameters, commandType: CommandType.StoredProcedure);
                 if (result.Message.Equals("Login successful."))
                     result.Success = true;
@@ -56,7 +56,7 @@ namespace HotelBookingSystem.Controllers
            {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@email1", request.Email);
-                parameters.Add("@password", request.Password);
+                parameters.Add("@password1", request.Password);
                 LoginResult result = conn.con.QueryFirstOrDefault<LoginResult>(sql: "Customer_Login", param: parameters, commandType: CommandType.StoredProcedure);
                 if (result.Message.Equals("Login successful."))
                     result.Success = true;
@@ -87,7 +87,7 @@ namespace HotelBookingSystem.Controllers
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@name", request.Name);
                 parameters.Add("@email", request.Email);
-                parameters.Add("@password", request.Password);
+                parameters.Add("@password1", request.Password);
                 RegisterResult result = conn.con.QueryFirstOrDefault<RegisterResult>(sql: "Admin_Register", param: parameters, commandType: CommandType.StoredProcedure);
                 if (result.Message.Equals("Registration successful."))
                     result.Success = true;
@@ -116,7 +116,7 @@ namespace HotelBookingSystem.Controllers
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@name", request.Name);
-                parameters.Add("@email", request.Email);
+                parameters.Add("@email1", request.Email);
                 parameters.Add("@password", request.Password);
                 RegisterResult result = conn.con.QueryFirstOrDefault<RegisterResult>(sql: "customer_Register", param: parameters, commandType: CommandType.StoredProcedure);
                 if (result.Message.Equals("Registration successful."))

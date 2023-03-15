@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "HotelBookingSystem\\bin\\Release\\net5.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/a8186a3c-3aa6-434c-a817-8ab7c2dcee4c/resourceGroups/HRS/providers/Microsoft.Web/sites/HRSystem"
+}
